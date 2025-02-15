@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'; //import mongoose for schema creation
 
+//define the notification schema
 const notificationSchema = new mongoose.Schema({
     from: {
         type: mongoose.Schema.Types.ObjectId,
@@ -14,14 +15,15 @@ const notificationSchema = new mongoose.Schema({
     type: {
         type: String,
         required: true,
-        enum: ['follow', 'like']
+        enum: ['follow', 'like'] //only allow follow or like as notification types
     },
     read: {
         type: Boolean,
-        default: false
+        default: false //default to unread
     }
-}, {timestamps: true})
+}, {timestamps: true}) //add timestamps for createdAt and updatedAt
 
+//create the Notification model
 const Notfiication = mongoose.model('Notification', notificationSchema)
 
 export default Notfiication

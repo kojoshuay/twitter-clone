@@ -1,5 +1,6 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose' //import mongoose for schema creation
 
+//define post schema
 const postSchema = new mongoose.Schema({
 
     user: {
@@ -32,8 +33,8 @@ const postSchema = new mongoose.Schema({
             },
         },
     ],
-}, {timestamps: true} )
+}, {timestamps: true} ) //add timestamps for createdAt and updatedAt
 
-const Post = mongoose.model("Post", postSchema)
+const Post = mongoose.model("Post", postSchema) //create the Post model
 
 export default Post

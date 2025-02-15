@@ -1,4 +1,6 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose" //import mongoose for schema creation
+
+//define the user schema
 const userSchema = new mongoose.Schema({
   username:{
     type: String,
@@ -53,9 +55,9 @@ const userSchema = new mongoose.Schema({
       default: [],
     },
   ],
-}, {timestamps: true}
+}, {timestamps: true} //add timestamps for createdAt and updatedAt
 )
 
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model("User", userSchema) //create the User model
 
 export default User
