@@ -124,7 +124,7 @@ export const likeUnlikePost = async (req, res) => {
             //remove the user's ID from the post's likes array
             await Post.updateOne({_id:postId}, {$pull: {likes: userId}})
             //remove the post ID from teh user's likePosts array
-            await Post.updateOne({_id: userId}, {$pull: {likedPosts: postId}})
+            await User.updateOne({_id: userId}, {$pull: {likedPosts: postId}})
 
             const updatedLikes = post.likes.filter((id) => id.toString() !== userId.toString())
             res.status(200).json(updatedLikes)
@@ -196,7 +196,11 @@ export const getLikedPosts = async (req, res) => {
         }
 
         //fetch all posts that the user has liked
-        const likedPosts = await Post.find({_id: {$in: user.likedPosts}})
+        const likedPosts = await Post.find(
+            {_id: {$in: user.likedPosts}, //find posts that the user has liked (stored in likedPosts)
+            likes: { $in: [userId] //ensure that the user ID is included in the likes array of the post
+        }})
+        
 
         .populate({
             //populate the user field to include user details, excluding password
