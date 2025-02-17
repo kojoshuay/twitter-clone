@@ -176,7 +176,7 @@ export const updateUser = async (req, res) => {
             
             if(user.coverImg) {
                 //delete the old cover image from cloudinary
-                await cloudinary.uploader.destroy(user.profileImg.split("/").pop().split(".")[0])
+                await cloudinary.uploader.destroy(user.coverImg.split("/").pop().split(".")[0])
             }
 
             //upload the new cover image to cloudinary
