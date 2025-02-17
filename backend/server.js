@@ -24,7 +24,8 @@ cloudinary.config({
 const app = express(); //create instance of the express application
 const PORT = process.env.PORT || 5000 //define the port for the server to listen on
 
-app.use(express.json()) //to parse req.body
+app.use(express.json({limit:"5mb"})) //to parse req.body
+//limit should not be too high to prevetn DoS attacks
 app.use(express.urlencoded({ extended: true })) //to parse URL encoded data in the request data (form data)
 
 app.use(cookieParser()) //middleware to parse cookies from incoming requests
