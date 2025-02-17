@@ -6,7 +6,7 @@
 /////////////
 
 import { useEffect } from "react";
-import Post from "../Post";
+import Post from "./Post";
 import PostSkeleton from "./skeletons/PostSkeleton";
 import { useQuery } from "@tanstack/react-query";
 
