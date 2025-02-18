@@ -14,6 +14,7 @@ import RightPanelSkeleton from "./skeletons/RightPanelSkeleton"
 import LoadingSpinner from "./LoadingSpinner";
 
 const RightPanel = () => {
+	//fetch suggested users using React Query
 	const {data:suggestedUsers, isLoading} = useQuery({
 		queryKey: ["suggestedUsers"],
 		queryFn: async() => {
@@ -31,8 +32,10 @@ const RightPanel = () => {
 		}
 	})
 
+	//hook to handle follow functionality
 	const { follow, isPending } = useFollow()
 
+	//if there are no suggested users, return an empty div
 	if(suggestedUsers?.length === 0) {
 		return <div className="md:w-64 w-0"></div>;
 	}

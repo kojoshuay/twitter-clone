@@ -236,7 +236,7 @@ export const getFollowingPosts = async (req, res) => {
         .sort({ createdAt: -1 })
         .populate({ //populate the user field to include user details, excluding password
             path: "user",
-            select: "password"
+            select: "-password"
         })
         .populate({ //populate the comments.user field to include commenter details, excluding password
             path: "comments.user",

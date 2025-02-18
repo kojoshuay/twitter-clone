@@ -11,7 +11,7 @@ import PostSkeleton from "./skeletons/PostSkeleton";
 import { useQuery } from "@tanstack/react-query";
 
 const Posts = ({feedType, username, userId}) => {
-
+	//function to determine the API endpoint based on the feed type
 	const getPostEndpoint = () => {
 		switch(feedType) {
 			case "forYou" :
@@ -27,8 +27,10 @@ const Posts = ({feedType, username, userId}) => {
 		}
 	}
 
+	//stores the API endpoint
 	const POST_ENDPOINT = getPostEndpoint()
 
+	//fetch posts using React Query
 	const {data:posts, isLoading, refetch, isRefetching} = useQuery({
 		queryKey: ["posts"],
 		queryFn: async () => {
@@ -48,6 +50,7 @@ const Posts = ({feedType, username, userId}) => {
 		}
 	})
 
+	//refetch posts when the feed type, username, or userId changes
 	useEffect(() => {
 		refetch()
 	}, [feedType, refetch, username, userId])

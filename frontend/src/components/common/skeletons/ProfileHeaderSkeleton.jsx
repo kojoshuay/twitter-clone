@@ -7,9 +7,13 @@
 
 const ProfileHeaderSkeleton = () => {
 	return (
+		//main container for the skeleton profile header
 		<div className='flex flex-col gap-2 w-full my-2 p-4'>
+			{/*container for the profile header content*/}
 			<div className='flex gap-2 items-center'>
+				{/*container for the profile details */}
 				<div className='flex flex-1 gap-1'>
+					{/* Container for the profile text and image */}
 					<div className='flex flex-col gap-1 w-full'>
 						<div className='skeleton h-4 w-12 rounded-full'></div>
 						<div className='skeleton h-4 w-16 rounded-full'></div>

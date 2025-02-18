@@ -19,16 +19,29 @@ import LoadingSpinner from "./LoadingSpinner";
 import { formatPostDate } from "../../utils/date";
 
 const Post = ({ post }) => {
+	//state to manage the comment input
 	const [comment, setComment] = useState("");
+
+	//fetch the authenticated user data
 	const { data: authUser } = useQuery({ queryKey: ["authUser"]});
+
+	//queryClient is an object that allows interaction with the cache
+	//add, update, remove, trigger refetches of the cache
 	const queryClient = useQueryClient();
+
+	//extract the post owner's info
 	const postOwner = post.user;
+
+	//check if the post belongs to the authenticated user
 	const isLiked = post.likes.includes(authUser);
 
+	//checks if the post belongs to the authenticated user
 	const isMyPost = authUser._id === post.user._id;
 
+	//format the post creation date
 	const formattedDate = formatPostDate(post.createdAt)
 
+	//mutation to delete a post
 	const {mutate: deletePost, isPending:isDeleting} = useMutation({
 		mutationFn: async () => {
 			try {
@@ -53,6 +66,7 @@ const Post = ({ post }) => {
 		}
 	})
 
+	//mutation to like a post
 	const {mutate:likePost, isPending: isLiking} = useMutation({
 		mutationFn: async () => {
 			try {
@@ -74,7 +88,7 @@ const Post = ({ post }) => {
 		onSuccess: (updatedLikes) => {
 			//this is not the best UI, bc it will refetch all posts
 			//queryClient.invalidateQueries({queryKey: ["posts"]})
-			//instead update the cache directly for that post
+			//instead update the cache directly for the post that was liked
 			queryClient.setQueryData(["posts"], (oldData) => {
 				return oldData.map(p => {
 					if(p._id === post._id) {
@@ -89,6 +103,7 @@ const Post = ({ post }) => {
 		}
 	})
 
+	//mutation to comment on a post
 	const { mutate: commentPost, isPending: isCommenting } = useMutation({
 		mutationFn: async () => {
 			try {
@@ -121,17 +136,19 @@ const Post = ({ post }) => {
 		}
 	})
 
-
+	//function to handle post deletion
 	const handleDeletePost = () => {
 		deletePost();
 	};
 
+	//function to handle posting a comment
 	const handlePostComment = (e) => {
 		e.preventDefault();
 		if(isCommenting) return
 		commentPost()
 	};
 
+	//function to handle liking a post
 	const handleLikePost = () => {
 		if(isLiking) return
 		likePost()
